@@ -7,6 +7,8 @@
 // clang-format on
 #pragma once
 
+#include <id_model/id_model.h>
+#include <id_model/to_string.h>
 #include <options.h>
 #include <utils.h>
 
@@ -22,6 +24,7 @@ enum class IdModelEnableOption {
   ProducerIndex,
   InlinePredicate,
   UnswitchPredicate,
+  Inlining,
 };
 
 inline std::unordered_set<IdModelEnableOption> getIdModelEnabledOptions() {
@@ -49,6 +52,10 @@ inline std::unordered_set<IdModelEnableOption> getIdModelEnabledOptions() {
       hasEnableOptionArgument(EnableOption::IdModel, "predicate") ||
       hasEnableOptionArgument(EnableOption::IdModel, "all")) {
     opts.insert(IdModelEnableOption::UnswitchPredicate);
+  }
+
+  if (hasEnableOptionArgument(EnableOption::IdModel, "inlining")) {
+    opts.insert(IdModelEnableOption::Inlining);
   }
 
   return opts;
